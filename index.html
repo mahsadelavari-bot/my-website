@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowRight Plumbing | Auckland's #1 Emergency Plumbers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0B1F3A;
+    --cobalt: #1349A8;
+    --sky:    #3A8BCD;
+    --amber:  #F5A623;
+    --white:  #FAFBFC;
+    --mist:   #EDF2F7;
+    --text:   #1A2B40;
+    --sub:    #5A7191;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 4vw;
+    background: rgba(11,31,58,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--cobalt);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem; letter-spacing: .05em; color: var(--white);
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .logo span { color: var(--amber); }
+  .nav-phone {
+    display: flex; align-items: center; gap: .6rem;
+    font-weight: 600; color: var(--white); text-decoration: none;
+    font-size: 1.05rem;
+  }
+  .nav-phone .icon { font-size: 1.2rem; }
+  .nav-cta {
+    background: var(--amber); color: var(--navy);
+    font-weight: 700; font-size: .9rem; letter-spacing: .06em; text-transform: uppercase;
+    border: none; border-radius: 4px; padding: .6rem 1.4rem;
+    cursor: pointer; text-decoration: none; transition: background .2s;
+  }
+  .nav-cta:hover { background: #e6951a; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative; overflow: hidden;
+    padding: 7rem 4vw 4rem;
+  }
+
+  /* diagonal split */
+  .hero::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 48%; height: 100%;
+    background: linear-gradient(135deg, var(--cobalt) 0%, #0d2d6e 100%);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+
+  /* grid pipe lines */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(58,139,205,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(58,139,205,.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(245,166,35,.15); border: 1px solid rgba(245,166,35,.4);
+    border-radius: 20px; padding: .35rem .9rem;
+    color: var(--amber); font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    animation: fadeUp .6s ease both;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.2rem, 7vw, 5.5rem);
+    line-height: .95; letter-spacing: .02em;
+    color: var(--white);
+    animation: fadeUp .7s .1s ease both;
+  }
+  h1 em { color: var(--sky); font-style: normal; }
+
+  .hero-sub {
+    margin-top: 1.2rem;
+    font-size: 1.1rem; color: #9DB5CC; line-height: 1.65;
+    max-width: 440px;
+    animation: fadeUp .7s .2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    margin-top: 2.2rem; flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+  }
+  .btn-primary {
+    background: var(--amber); color: var(--navy);
+    font-weight: 700; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase;
+    border: none; border-radius: 6px; padding: 1rem 2rem;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .5rem;
+    box-shadow: 0 4px 20px rgba(245,166,35,.35);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,166,35,.45); }
+  .btn-ghost {
+    color: var(--white); font-weight: 600; font-size: 1rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: .4rem;
+    border-bottom: 2px solid rgba(255,255,255,.2); padding-bottom: 2px;
+    transition: border-color .2s;
+  }
+  .btn-ghost:hover { border-color: var(--sky); color: var(--sky); }
+
+  .hero-stats {
+    display: flex; gap: 2rem; margin-top: 3rem;
+    animation: fadeUp .7s .4s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem; color: var(--white); letter-spacing: .04em;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--amber); }
+  .stat-label { font-size: .78rem; color: var(--sub); text-transform: uppercase; letter-spacing: .1em; margin-top: .15rem; }
+
+  /* Hero visual side */
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding-left: 3rem;
+    animation: fadeIn .8s .2s ease both;
+  }
+  .hero-card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px; padding: 1.6rem 2rem;
+    backdrop-filter: blur(6px);
+    max-width: 340px; width: 100%;
+  }
+  .hero-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; color: var(--white); margin-bottom: 1.2rem;
+  }
+  .availability {
+    display: flex; align-items: center; gap: .6rem;
+    margin-bottom: 1rem;
+  }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #22C55E; box-shadow: 0 0 0 3px rgba(34,197,94,.25);
+    animation: pulse 2s infinite;
+  }
+  .avail-text { color: #9DB5CC; font-size: .9rem; }
+  .avail-text strong { color: #22C55E; }
+  .hero-form { display: flex; flex-direction: column; gap: .75rem; }
+  .hero-form input, .hero-form select {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+    border-radius: 6px; padding: .75rem 1rem;
+    color: var(--white); font-family: 'DM Sans', sans-serif; font-size: .95rem;
+    outline: none; transition: border-color .2s;
+    width: 100%;
+  }
+  .hero-form input::placeholder { color: #6B8BAA; }
+  .hero-form input:focus, .hero-form select:focus { border-color: var(--sky); }
+  .hero-form select option { background: var(--navy); color: var(--white); }
+  .hero-form .submit {
+    background: var(--amber); color: var(--navy); font-weight: 700;
+    border: none; border-radius: 6px; padding: .85rem;
+    font-size: 1rem; cursor: pointer; letter-spacing: .04em; text-transform: uppercase;
+    transition: background .2s;
+  }
+  .hero-form .submit:hover { background: #e6951a; }
+  .form-note { font-size: .75rem; color: #6B8BAA; text-align: center; margin-top: .2rem; }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--cobalt);
+    padding: 1rem 4vw;
+    display: flex; align-items: center; justify-content: center;
+    gap: clamp(1rem, 4vw, 3rem); flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: .5rem;
+    color: rgba(255,255,255,.9); font-size: .88rem; font-weight: 500;
+  }
+  .trust-item .t-icon { font-size: 1.1rem; }
+  .trust-div { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+
+  /* ── SERVICES ── */
+  .services { padding: 6rem 4vw; background: var(--white); }
+  .section-label {
+    font-size: .78rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--cobalt); margin-bottom: .6rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); color: var(--navy); line-height: 1.15;
+    max-width: 500px;
+  }
+  .section-title em { font-style: italic; color: var(--cobalt); }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .section-sub { max-width: 340px; color: var(--sub); line-height: 1.6; font-size: .95rem; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    border: 1.5px solid var(--mist); border-radius: 12px;
+    padding: 2rem 1.8rem; position: relative; overflow: hidden;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--cobalt), var(--sky));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .service-card:hover { border-color: rgba(19,73,168,.25); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(11,31,58,.1); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 2.2rem; margin-bottom: 1.1rem; }
+  .service-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: .6rem; }
+  .service-desc { color: var(--sub); font-size: .9rem; line-height: 1.6; margin-bottom: 1.2rem; }
+  .service-link {
+    color: var(--cobalt); font-weight: 600; font-size: .88rem;
+    text-decoration: none; display: inline-flex; align-items: center; gap: .3rem;
+    letter-spacing: .02em;
+  }
+  .service-link:hover { color: var(--sky); }
+
+  .emergency-band {
+    margin-top: 2rem;
+    background: var(--navy); border-radius: 12px;
+    padding: 2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; flex-wrap: wrap;
+  }
+  .emerg-text h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--white); letter-spacing: .05em; }
+  .emerg-text p { color: #9DB5CC; font-size: .9rem; margin-top: .2rem; }
+  .emerg-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--amber);
+    letter-spacing: .06em; text-decoration: none;
+    transition: color .2s;
+  }
+  .emerg-num:hover { color: #e6951a; }
+
+  /* ── PROCESS ── */
+  .process { background: var(--mist); padding: 5rem 4vw; }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 0; margin-top: 3rem;
+    border: 1.5px solid rgba(19,73,168,.15); border-radius: 12px; overflow: hidden;
+  }
+  .step {
+    padding: 2.2rem 1.8rem; background: var(--white);
+    border-right: 1.5px solid rgba(19,73,168,.12);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem; color: rgba(19,73,168,.08); line-height: 1;
+    position: absolute; top: 1rem; right: 1.2rem;
+    letter-spacing: -.02em;
+  }
+  .step-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+  .step-title { font-weight: 700; color: var(--navy); font-size: 1rem; margin-bottom: .4rem; }
+  .step-desc { color: var(--sub); font-size: .88rem; line-height: 1.55; }
+
+  /* ── REVIEWS ── */
+  .reviews { padding: 6rem 4vw; background: var(--white); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr));
+    gap: 1.4rem; margin-top: 3rem;
+  }
+  .review-card {
+    background: var(--white); border: 1.5px solid var(--mist);
+    border-radius: 12px; padding: 1.8rem;
+    transition: box-shadow .25s;
+  }
+  .review-card:hover { box-shadow: 0 8px 28px rgba(11,31,58,.09); }
+  .stars { color: var(--amber); font-size: 1rem; letter-spacing: .05em; margin-bottom: 1rem; }
+  .review-text { color: var(--text); font-size: .95rem; line-height: 1.7; font-style: italic; margin-bottom: 1.3rem; }
+  .review-text::before { content: '\201C'; color: var(--sky); font-size: 1.5rem; font-family: 'DM Serif Display', serif; }
+  .reviewer { display: flex; align-items: center; gap: .8rem; }
+  .reviewer-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .95rem; color: var(--white);
+    flex-shrink: 0;
+  }
+  .reviewer-name { font-weight: 600; color: var(--navy); font-size: .9rem; }
+  .reviewer-loc { color: var(--sub); font-size: .78rem; margin-top: .1rem; }
+  .verified { color: #22C55E; font-size: .72rem; font-weight: 600; letter-spacing: .05em; margin-top: .15rem; }
+  .google-badge {
+    margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem;
+    justify-content: center;
+  }
+  .google-badge .rating-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--navy); line-height: 1; }
+  .google-badge .rating-detail { }
+  .google-badge .g-stars { color: var(--amber); font-size: 1.3rem; }
+  .google-badge .g-label { color: var(--sub); font-size: .82rem; }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--navy); padding: 6rem 4vw; position: relative; overflow: hidden; }
+  .contact::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(19,73,168,.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; position: relative; z-index: 1; }
+  .contact-info .section-label { color: var(--sky); }
+  .contact-info .section-title { color: var(--white); max-width: 380px; }
+  .contact-info .section-title em { color: var(--amber); }
+  .contact-sub { color: #9DB5CC; font-size: .95rem; line-height: 1.65; margin-top: 1rem; max-width: 360px; }
+  .contact-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: .9rem;
+  }
+  .c-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: rgba(58,139,205,.15); border: 1px solid rgba(58,139,205,.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .c-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--sub); font-weight: 600; }
+  .c-val { color: var(--white); font-weight: 600; margin-top: .15rem; font-size: .95rem; }
+  .c-val a { color: var(--amber); text-decoration: none; }
+
+  /* Form */
+  .contact-form {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    backdrop-filter: blur(6px);
+  }
+  .form-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 1.6rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+  .form-group { margin-bottom: .85rem; }
+  .form-group label { display: block; font-size: .8rem; font-weight: 600; color: #9DB5CC; margin-bottom: .35rem; letter-spacing: .05em; text-transform: uppercase; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.14); border-radius: 6px;
+    padding: .8rem 1rem; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: .95rem; outline: none;
+    transition: border-color .2s;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #4A6580; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--sky); }
+  .form-group select option { background: var(--navy); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit {
+    width: 100%; background: var(--amber); color: var(--navy);
+    font-weight: 700; font-size: 1rem; letter-spacing: .05em; text-transform: uppercase;
+    border: none; border-radius: 6px; padding: 1rem;
+    cursor: pointer; margin-top: .5rem;
+    transition: background .2s, transform .15s;
+  }
+  .form-submit:hover { background: #e6951a; transform: translateY(-1px); }
+  .form-privacy { font-size: .75rem; color: #4A6580; text-align: center; margin-top: .6rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #07141F; padding: 2rem 4vw;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .foot-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--white); letter-spacing: .05em; }
+  .foot-logo span { color: var(--amber); }
+  .foot-copy { color: #3A5268; font-size: .8rem; }
+  .foot-links { display: flex; gap: 1.5rem; }
+  .foot-links a { color: #3A5268; font-size: .8rem; text-decoration: none; }
+  .foot-links a:hover { color: var(--sky); }
+
+  /* ── STICKY MOBILE CTA ── */
+  .sticky-cta {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+    background: var(--navy); border-top: 2px solid var(--cobalt);
+    padding: .9rem 1.5rem;
+    align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .sticky-cta .s-text { color: #9DB5CC; font-size: .85rem; }
+  .sticky-cta .s-text strong { color: var(--white); display: block; }
+  .sticky-cta a { background: var(--amber); color: var(--navy); font-weight: 700; font-size: .9rem; border-radius: 6px; padding: .7rem 1.4rem; text-decoration: none; white-space: nowrap; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,.25); }
+    50%       { box-shadow: 0 0 0 6px rgba(34,197,94,.1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 6rem 5vw 3rem; }
+    .hero::after { display: none; }
+    .hero-visual { padding-left: 0; margin-top: 2.5rem; }
+    .hero-card { max-width: 100%; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .step { border-bottom: 1.5px solid rgba(19,73,168,.12); border-right: none; }
+    .step:nth-child(odd) { border-right: 1.5px solid rgba(19,73,168,.12); }
+  }
+  @media (max-width: 600px) {
+    .nav-phone { display: none; }
+    .hero-stats { gap: 1.2rem; }
+    .process-grid { grid-template-columns: 1fr; }
+    .step { border-right: none; }
+    .step:nth-child(odd) { border-right: none; }
+    .sticky-cta { display: flex; }
+    body { padding-bottom: 72px; }
+    .emergency-band { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Flow<span>Right</span> Plumbing</div>
+  <a class="nav-phone" href="tel:0800356974">
+    <span class="icon">📞</span> 0800 356 974
+  </a>
+  <a class="nav-cta" href="#contact">Get a Free Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Auckland's Fastest Response Time</div>
+    <h1>No Leak Too<br><em>Big Or Small</em></h1>
+    <p class="hero-sub">Auckland's trusted plumbers — available 24/7 for emergencies. Licensed, local, and ready in under 60 minutes.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="tel:0800356974">📞 Call Now — It's Free</a>
+      <a class="btn-ghost" href="#contact">Get a Quote →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2,400<span>+</span></div>
+        <div class="stat-label">Jobs completed</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9<span>★</span></div>
+        <div class="stat-label">Google rating</div>
+      </div>
+      <div>
+        <div class="stat-num">60<span>min</span></div>
+        <div class="stat-label">Avg response</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-title">Book a Plumber Now</div>
+      <div class="availability">
+        <div class="dot"></div>
+        <div class="avail-text">We're <strong>available right now</strong> — even on weekends</div>
+      </div>
+      <form class="hero-form" onsubmit="handleQuote(event)">
+        <input type="text" placeholder="Your name" required>
+        <input type="tel" placeholder="Phone number" required>
+        <select>
+          <option value="" disabled selected>What do you need?</option>
+          <option>Emergency repair</option>
+          <option>Blocked drain</option>
+          <option>Hot water system</option>
+          <option>Burst pipe</option>
+          <option>Bathroom renovation</option>
+          <option>General quote</option>
+        </select>
+        <button type="submit" class="submit">Get My Free Quote →</button>
+        <div class="form-note">🔒 No obligation. We'll call within 15 minutes.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="t-icon">✅</span> Master Plumbers NZ Certified</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="t-icon">🏆</span> 10+ Years in Auckland</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="t-icon">🛡️</span> Fully Insured & Licensed</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="t-icon">💰</span> Upfront Fixed Pricing</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="t-icon">🕐</span> 24/7 Emergency Service</div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Every job done<br><em>right first time</em></h2>
+    </div>
+    <div class="section-sub">From emergency callouts to full bathroom renovations — our licensed team handles it all across Auckland.</div>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🚨</div>
+      <div class="service-name">Emergency Plumbing</div>
+      <div class="service-desc">Burst pipes, major leaks, no hot water — we're there in under 60 minutes, day or night, 365 days a year.</div>
+      <a class="service-link" href="tel:0800356974">Call now →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚿</div>
+      <div class="service-name">Blocked Drains</div>
+      <div class="service-desc">High-pressure water jetting, CCTV drain inspections, and permanent fixes — not just temporary patches.</div>
+      <a class="service-link" href="#contact">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔥</div>
+      <div class="service-name">Hot Water Systems</div>
+      <div class="service-desc">Supply, install, and service all brands. Heat pump, gas, electric, and solar hot water specialists.</div>
+      <a class="service-link" href="#contact">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛁</div>
+      <div class="service-name">Bathroom Renovations</div>
+      <div class="service-desc">Full bathroom and kitchen plumbing fit-outs. Precise planning, quality fixtures, zero mess left behind.</div>
+      <a class="service-link" href="#contact">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔩</div>
+      <div class="service-name">Leak Detection</div>
+      <div class="service-desc">Non-invasive acoustic and thermal imaging to pinpoint leaks fast — saving your walls, floors, and wallet.</div>
+      <a class="service-link" href="#contact">Get a quote →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <div class="service-name">New Builds & Renos</div>
+      <div class="service-desc">Residential and light commercial new builds. We work with your builder from rough-in to final fit-off.</div>
+      <a class="service-link" href="#contact">Get a quote →</a>
+    </div>
+  </div>
+
+  <div class="emergency-band">
+    <div class="emerg-text">
+      <h3>🚨 Plumbing Emergency? Don't Wait.</h3>
+      <p>We answer every call — including nights, weekends, and public holidays.</p>
+    </div>
+    <a class="emerg-num" href="tel:0800356974">0800 356 974</a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process" id="process">
+  <div class="section-label" style="text-align:center">How It Works</div>
+  <h2 class="section-title" style="text-align:center;margin:0 auto;margin-top:.4rem">Fixed in 4 simple steps</h2>
+  <div class="process-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📞</div>
+      <div class="step-title">Call or Request Online</div>
+      <div class="step-desc">Ring us or fill in our quick form. We'll confirm availability in minutes.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">🚐</div>
+      <div class="step-title">We Arrive Fast</div>
+      <div class="step-desc">A licensed plumber arrives, fully stocked van. No waiting for parts.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">💬</div>
+      <div class="step-title">Upfront Fixed Price</div>
+      <div class="step-desc">You get a clear price before we start — no hidden fees, ever.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-icon">✅</div>
+      <div class="step-title">Job Done Right</div>
+      <div class="step-desc">We leave your home clean and your plumbing fully guaranteed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Real Reviews</div>
+      <h2 class="section-title">Aucklanders trust us<br><em>for a reason</em></h2>
+    </div>
+    <div class="google-badge">
+      <div class="rating-num">4.9</div>
+      <div class="rating-detail">
+        <div class="g-stars">★★★★★</div>
+        <div class="g-label">Based on 340+ Google Reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">FlowRight were at my house within 45 minutes of calling. The plumber was professional, explained everything clearly, and fixed our burst pipe before it could do major damage. Absolutely lifesavers.</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: linear-gradient(135deg,#1349A8,#3A8BCD);">SK</div>
+        <div>
+          <div class="reviewer-name">Sarah K.</div>
+          <div class="reviewer-loc">Ponsonby, Auckland</div>
+          <div class="verified">✔ Verified Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Had them install our new hot water heat pump. Competitive price, tidy work, and they explained everything about the new system. Will 100% use again and have already recommended to my neighbours.</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: linear-gradient(135deg,#0B3D6E,#1349A8);">MT</div>
+        <div>
+          <div class="reviewer-name">Mike T.</div>
+          <div class="reviewer-loc">Remuera, Auckland</div>
+          <div class="verified">✔ Verified Google Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Blocked drain at 9pm on a Sunday — they still showed up and sorted it no drama. Fair pricing and no complaints about the late call. This is the only plumbing company I'll ever call again.</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: linear-gradient(135deg,#2D6A9F,#3A8BCD);">JR</div>
+        <div>
+          <div class="reviewer-name">Jo R.</div>
+          <div class="reviewer-loc">Mt Eden, Auckland</div>
+          <div class="verified">✔ Verified Google Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's sort your plumbing — <em>today</em></h2>
+      <p class="contact-sub">Fill in the form or call us directly. We reply to all online enquiries within 15 minutes during business hours.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label">Phone</div>
+            <div class="c-val"><a href="tel:0800356974">0800 356 974</a> (24/7)</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📧</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-val"><a href="mailto:hello@flowrightplumbing.co.nz" style="color:var(--sky);">hello@flowrightplumbing.co.nz</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label">Service Area</div>
+            <div class="c-val" style="color:#9DB5CC;">All of Auckland — North Shore to Manukau</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">🕐</div>
+          <div>
+            <div class="c-label">Hours</div>
+            <div class="c-val" style="color:#9DB5CC;">Mon–Fri 7am–6pm &nbsp;|&nbsp; Emergency 24/7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-title">Request a Free Quote</div>
+      <form onsubmit="handleContact(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="021 000 000" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="jane@email.com">
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select>
+            <option value="" disabled selected>Select a service</option>
+            <option>Emergency Plumbing</option>
+            <option>Blocked Drains</option>
+            <option>Hot Water System</option>
+            <option>Bathroom Renovation</option>
+            <option>Leak Detection</option>
+            <option>New Build / Reno</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us more (optional)</label>
+          <textarea placeholder="Describe the issue or job..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Request →</button>
+        <div class="form-privacy">🔒 Your info is private and never shared.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Flow<span>Right</span> Plumbing</div>
+  <div class="foot-copy">© 2025 FlowRight Plumbing Ltd · Auckland, New Zealand</div>
+  <div class="foot-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms</a>
+    <a href="#">Sitemap</a>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <div class="s-text">
+    <strong>Need a plumber?</strong>
+    We're available right now
+  </div>
+  <a href="tel:0800356974">📞 Call Now</a>
+</div>
+
+<script>
+  function handleQuote(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit');
+    btn.textContent = '✅ Request Sent! We'll call shortly.';
+    btn.style.background = '#22C55E';
+    btn.style.color = '#fff';
+  }
+  function handleContact(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✅ Sent! We'll be in touch within 15 minutes.';
+    btn.style.background = '#22C55E';
+    btn.style.color = '#fff';
+  }
+
+  // Scroll-reveal for service/review cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = `fadeUp 0.5s ${i * 0.07}s ease both`;
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .review-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
